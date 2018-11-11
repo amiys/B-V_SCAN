@@ -1,39 +1,39 @@
-//�E�B���h�E�̈ʒu��Sleep�̎��Ԃ͓K�X�␳���邱��
-//���Ƀt�@�C��������͌��Enter�L�[����肭�F������Ȃ��s�������
+//ウィンドウの位置やSleepの時間は適宜補正すること
+//特にファイル名を入力後のEnterキーが上手く認識されない不具合が多い
 
-fid = FOPEN("C:\Programs\uwsc\programs\prototype3\CSV_BV.csv", F_READ) //CSV_BV.csv�������Ă���f�B���N�g�����΃p�X�Ŏw��
+fid = FOPEN("C:\Programs\uwsc\programs\prototype3\CSV_BV.csv", F_READ) //CSV_BV.csvが入っているディレクトリを絶対パスで指定
 
-EXEC("C:\Users\My_Name\Downloads\pls32135\plots32.exe") //plots32.exe�������Ă���f�B���N�g�����΃p�X�Ŏw��
+EXEC("C:\Users\My_Name\Downloads\pls32135\plots32.exe") //plots32.exeが入っているディレクトリを絶対パスで指定
 Sleep(0.05)
 
 i=1
-For �s = 1 to FGET(fid,-1)
+For 行 = 1 to FGET(fid,-1)
    ACW(GETID("Plots32 - Untitled.pl3","OWL_Window"),675,239,643,669,0) 
    KBD(VK_ALT,DOWN,500)
    KBD(VK_D,CLICK,10)
    KBD(VK_ALT,UP,10)
    KBD(VK_RETURN,CLICK,10)
-   ACW(GETID("���l�ް��̵����"),484,302,1144,592,0)
+   ACW(GETID("数値ﾃﾞｰﾀのｵｰﾌﾟﾝ"),484,302,1144,592,0)
    Sleep(0.05)
-   //dat�t�@�C����ǂݍ��� .dat�������Ă���f�B���N�g�����΃p�X�Ŏw��
-   SendStr(GETID("���l�ް��̵����"),"C:\Programs\uwsc\programs\prototype3\dats\" + FGET(fid,�s,1) + ".dat")
+   //datファイルを読み込む .datが入っているディレクトリを絶対パスで指定
+   SendStr(GETID("数値ﾃﾞｰﾀのｵｰﾌﾟﾝ"),"C:\Programs\uwsc\programs\prototype3\dats\" + FGET(fid,行,1) + ".dat")
    Sleep(0.05)
    KBD(VK_RETURN,CLICK,10)
 
    ACW(GETID("Plots32 - Untitled.pl3","OWL_Window"),675,239,643,669,0)
-   ACW(GETID(FGET(fid,�s,1)),692,343,506,552,0)
+   ACW(GETID(FGET(fid,行,1)),692,343,506,552,0)
    KBD(VK_TAB,CLICK,10)
    KBD(VK_2,CLICK,10)
    KBD(VK_TAB,CLICK,10)
    KBD(VK_3,CLICK,10)
    KBD(VK_TAB,CLICK,10)
    KBD(VK_TAB,CLICK,10)
-   SendStr(GETID(FGET(fid,�s,1)),FGET(fid,�s,2))
+   SendStr(GETID(FGET(fid,行,1)),FGET(fid,行,2))
    KBD(VK_TAB,CLICK,10)
-   SendStr(GETID(FGET(fid,�s,1)),FGET(fid,�s,3))
+   SendStr(GETID(FGET(fid,行,1)),FGET(fid,行,3))
    KBD(VK_RETURN,CLICK,10)
    ACW(GETID("Plots32 - Untitled.pl3","OWL_Window"),675,239,643,669,0)
-   ACW(GETID(FGET(fid,�s,1)),718,340,534,582,0)
+   ACW(GETID(FGET(fid,行,1)),718,340,534,582,0)
    KBD(VK_A,CLICK,10)
    KBD(VK_TAB,CLICK,10)
    KBD(VK_X,CLICK,10)
@@ -70,19 +70,19 @@ For �s = 1 to FGET(fid,-1)
    KBD(VK_RETURN,CLICK,10)
    ACW(GETID("Plots32 - Untitled.pl3","OWL_Window"),675,239,643,669,0)
 
-   If (�s mod 3) = 0 then PL3save(fid,�s)
+   If (行 mod 3) = 0 then PL3save(fid,行)
 
 next
 
 FCLOSE(fid)
 
-Procedure PL3save(fid,�s)
-   //�I�[�g�X�P�[�����O����x����-70����+70mT�͈̔͂ɐݒ肷��
+Procedure PL3save(fid,行)
+   //オートスケーリングしてx軸を-70から+70mTの範囲に設定する
    ACW(GETID("Plots32 - Untitled.pl3","OWL_Window"),675,239,643,669,0)
    KBD(VK_CTRL,DOWN,500)
    KBD(VK_A,CLICK,10)
    KBD(VK_CTRL,UP,10)
-   ACW(GETID("��Ľ���ݸ�","#32770"),690,330,276,232,0)
+   ACW(GETID("ｵｰﾄｽｹｰﾘﾝｸﾞ"),690,330,276,232,0)
    KBD(VK_RETURN,CLICK,10)
    ACW(GETID("Plots32 - Untitled.pl3","OWL_Window"),675,239,643,669,0)
    KBD(VK_ALT,DOWN,500)
@@ -90,7 +90,7 @@ Procedure PL3save(fid,�s)
    KBD(VK_ALT,UP,10)
    KBD(VK_DOWN,CLICK,10)
    KBD(VK_RETURN,CLICK,10)
-   ACW(GETID("���̽���"),698,338,734,459,0)
+   ACW(GETID("軸のｽﾀｲﾙ"),698,338,734,459,0)
    KBD(VK_S,CLICK,100)
    KBD(VK_OEM_MINUS,CLICK,10)
    KBD(VK_7,CLICK,10)
@@ -100,20 +100,20 @@ Procedure PL3save(fid,�s)
    KBD(VK_0,CLICK,10)
    KBD(VK_RETURN,CLICK,10)
    
-   //.pl3�`���ŕۑ�����plots32����
+   //.pl3形式で保存してplots32閉じる
    KBD(VK_ALT,DOWN,500)
    KBD(VK_F4,CLICK,10)
    KBD(VK_ALT,UP,10)
-   ACW(GETID("�O���t�͍X�V����Ă��܂�"),774,444,378,202,0)
+   ACW(GETID("グラフは更新されています"),774,444,378,202,0)
    KBD(VK_RETURN,CLICK,10)
    ACW(GETID("Plots32 - Untitled.pl3","OWL_Window"),675,239,643,669,0)
-   ACW(GETID("�t�@�C����ۑ����܂�"),484,302,1144,592,0)
+   ACW(GETID("ファイルを保存します"),484,302,1144,592,0)
    Sleep(0.05)
-   // .dat�������Ă���f�B���N�g�����΃p�X�Ŏw��
-   SendStr(GETID("�t�@�C����ۑ����܂�"),"C:\Programs\uwsc\programs\prototype3\dats\" + FGET(fid,�s,1) + ".pl3")
+   // .datが入っているディレクトリを絶対パスで指定
+   SendStr(GETID("ファイルを保存します"),"C:\Programs\uwsc\programs\prototype3\dats\" + FGET(fid,行,1) + ".pl3")
    KBD(VK_RETURN,CLICK,10)
    
-   //plots32�J��
-   EXEC("C:\Users\My_Name\Downloads\pls32135\plots32.exe") //plots32.exe�������Ă���f�B���N�g�����΃p�X�Ŏw��
+   //plots32開く
+   EXEC("C:\Users\My_Name\Downloads\pls32135\plots32.exe") //plots32.exeが入っているディレクトリを絶対パスで指定
    Sleep(0.05)
 Fend
